@@ -6,11 +6,13 @@ type TReturn<T extends object> = {
   controller: (props: T) => void;
 };
 
+type TStore<T> = T & { setProps: (props: T) => void };
+
 export const withRCC = <T extends object>(
   Component: FC<T>,
   defaultPropsValues: T
 ): TReturn<T> => {
-  const useRCCStore = create<T & { setProps: (props: T) => void }>()((set) => ({
+  const useRCCStore = create<TStore<T>>()((set) => ({
     ...defaultPropsValues,
     setProps: (props: T) => set({ ...props }),
   }));
