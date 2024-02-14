@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 type TStore<T> = T & { setProps: (props: T) => void };
 
-export const withRCC = <T extends object>(
+export const withRC = <T extends object>(
   Component: FC<T>,
   defaultPropsValues: T
 ) => {
@@ -24,7 +24,7 @@ export const withRCC = <T extends object>(
     useRCCStore.getState().setProps, // controller
     //factory function
     (defaultPropsValues: T) => {
-      const [RCC, RC] = withRCC(Component, defaultPropsValues);
+      const [RCC, RC] = withRC(Component, defaultPropsValues);
 
       return [RCC, RC] as const;
     },

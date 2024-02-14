@@ -1,4 +1,4 @@
-import { withRCC } from "../../withRCC/withRCC";
+import { withRC } from "../../withRC/withRC";
 
 interface ICustomTitleProps {
   text: string;
@@ -19,7 +19,7 @@ export const CustomTitle = ({ text, visible, link }: ICustomTitleProps) => {
 
 // CustomTitleRCC : remote controller component
 // CustomTitleRC : remote controller
-export const [CustomTitleRCC, customTitleRC, createCustomTitle] = withRCC(
+export const [CustomTitleRCC, customTitleRC, createCustomTitle] = withRC(
   CustomTitle,
   {
     text: "deneme",
