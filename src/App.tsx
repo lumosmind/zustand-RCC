@@ -27,7 +27,7 @@ function App() {
   }, [isHeaderVisible, isLinkActive]);
 
   useEffect(() => {
-    TitleXRC({ text: titleXText, visible: true });
+    TitleXRC({ text: titleXText }); // set only which props you want, RC provides patching state
   }, [titleXText]);
 
   return (
