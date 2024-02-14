@@ -1,17 +1,12 @@
 import { FC } from "react";
 import { create } from "zustand";
 
-type TReturn<T extends object> = {
-  Component: FC<{}>;
-  controller: (props: T) => void;
-};
-
 type TStore<T> = T & { setProps: (props: T) => void };
 
 export const withRCC = <T extends object>(
   Component: FC<T>,
   defaultPropsValues: T
-): TReturn<T> => {
+) => {
   const useRCCStore = create<TStore<T>>()((set) => ({
     ...defaultPropsValues,
     setProps: (props: T) => set({ ...props }),
@@ -24,8 +19,14 @@ export const withRCC = <T extends object>(
     return <Component {...props} />;
   };
 
-  return {
-    Component: ComponentWrapper,
-    controller: useRCCStore.getState().setProps,
-  };
+  return [
+    ComponentWrapper, /// component
+    useRCCStore.getState().setProps, // controller
+    //factory function
+    (defaultPropsValues: T) => {
+      const [RCC, RC] = withRCC(Component, defaultPropsValues);
+
+      return [RCC, RC] as const;
+    },
+  ] as const;
 };

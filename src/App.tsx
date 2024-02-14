@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import {
   CustomTitleRCC,
-  CustomTitleRC,
+  customTitleRC,
+  createCustomTitle,
 } from "./components/custom-title/CustomTitle";
+
+export const [TitleX, TitleXRC] = createCustomTitle({
+  text: "title X",
+  visible: true,
+  link: "https//:x.com",
+});
 
 function App() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isLinkActive, setIsLinkActive] = useState(false);
+  const [titleXText, setTitleXText] = useState("X");
 
   useEffect(() => {
-    CustomTitleRC({
+    customTitleRC({
       text: "başlık 1",
       visible: isHeaderVisible,
       link: isLinkActive ? "https://google.com" : undefined,
@@ -17,6 +25,10 @@ function App() {
 
     console.log("isLinksDisabled", isHeaderVisible);
   }, [isHeaderVisible, isLinkActive]);
+
+  useEffect(() => {
+    TitleXRC({ text: titleXText, visible: true });
+  }, [titleXText]);
 
   return (
     <div className="App">
@@ -44,7 +56,22 @@ function App() {
             setIsLinkActive(value);
           }}
         />
+        <br />
+        <br />
+        <label htmlFor="">TitleX text</label>
+        <input
+          type="text"
+          name=""
+          id=""
+          value={titleXText}
+          onChange={(e) => {
+            setTitleXText(e.target.value);
+          }}
+        />
       </header>
+      <main>
+        <TitleX />
+      </main>
       <footer>
         <CustomTitleRCC />
       </footer>

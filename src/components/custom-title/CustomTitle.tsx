@@ -19,7 +19,7 @@ export const CustomTitle = ({ text, visible, link }: ICustomTitleProps) => {
 
 // CustomTitleRCC : remote controller component
 // CustomTitleRC : remote controller
-export const { Component: CustomTitleRCC, controller: CustomTitleRC } = withRCC(
+export const [CustomTitleRCC, customTitleRC, createCustomTitle] = withRCC(
   CustomTitle,
   {
     text: "deneme",
